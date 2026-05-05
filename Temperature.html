@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport content=width=device-width, initial-scale=1.0">
+        <title>Temperature Converter - Maithili</title>
+        <style>
+            * {margin: 0; padding: 0; box-sizing: border-box;}
+            body{
+                font-family: Arial, sans-serif;
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                color: white;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .container {
+                background: rgba(255,255,255,0.1);
+                padding: 40px;
+                border-radius: 20px;
+                backdrop-filter: blur(10px);
+                width: 90%;
+                max-width: 450px;
+                text-align: center;
+            }
+            h1 { font-size: 32px; margin-bottom: 10px;}
+            .subtitle { opacity: 0.9; margin-bottom: 30px;}
+            .input-group { margin: 20px 0; text-align: left;}
+            label { display: block; margin-bottom: 8px; font-weight: bold;}
+            input, select {
+                width: 100%;
+                padding: 12px;
+                border: none;
+                border-radius: 10px;
+                font-size: 16px;
+                background: rgba(255,255,255,0.9);
+            }
+            button {
+                width: 100%;
+                padding: 15px;
+                background: #ff6b6b;
+                color: white;
+                border: none;
+                border-radius: 10px;
+                font-size: 18px;
+                font-weight: bold;
+                margin-top: 20px;
+                cursor: pointer;
+            }
+            button:hover { background: #ff5252;}
+            .result {
+                display: none;
+                margin-top: 30px;
+                padding: 20px;
+                background: rgba(0,0,0,0.2);
+                border-radius: 10px;
+                font-size: 18px;
+                
+            }
+            footer { margin-top: 30px; opacity: 0.8; font-size: 14px;}
+
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>🌡 Temperature Converter</h1>
+            <p class="subtitle">Convert between Celsius, Fahrenheit & Kelvin</p>
+
+            <div class="input-group">
+                <label> Enter Temperature:</label>
+                <input type="number" id="temperature" placeholder="Enter value">
+            </div>
+
+            <div class="input-group">
+                <label>From:</label>
+                <select id="fromUnit">
+                    <option value="fahrenheit">fahrenheit °F </option>
+                    <option value="celsius">Celsius °C </option>
+                    <option value="kelvin">Kelvin K</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>To:</label>
+                <select id="toUnit">
+                   <option value="fahrenheit">fahrenheit °F </option>
+                    <option value="celsius">Celsius °C </option>
+                    <option value="kelvin">Kelvin K</option>
+                </select>
+            </div>
+
+            <button onclick="convertTemp()">Convert</button>
+
+            <div id="result" style="margin-top: 20px; font-size: 24px; font-weight: bold;"></div>
+             
+
+                <p style="margin-top: 30px; opacity: 0.7;">2026 | Designed & Developed by Maithili</p>
+
+        </div>
+
+        <script>
+            function convertTemp() {
+                let input = parseFloat(document.getElementById('temperature').value);
+                let from = document.getElementById('fromUnit').value;
+                let to = document.getElementById('toUnit').value;
+                let result = document.getElementById('result');
+
+                if (isNaN(input)) {
+                    result.style.display = 'block' ;
+                    result.innerHTML = 'Please enter a valid number';
+                    return;
+                }
+
+                let celsius;
+
+                if (from === 'celsius') celsius = input;
+                else if (from === 'farenheit') celsius = (input - 32) * 5/9;
+                else if (from === 'kelvin') celsius = input - 273.15;
+
+                let output;
+                if (to === 'celsius' ) output = celsius;
+               else if (to === 'fahrenheit') output = (celsius * 9/5) + 32;
+                else if (to === 'kelvin') output = celsius +273.15;
+
+                let unit = to === 'celsius' ? '°C' : to === 'fahrenheit' ? '°F' : 'K';
+
+                result.style.display = 'block';
+                result.innerHTML = `<strong>Result:</strong> ${output.toFixed(2)} ${unit}`;
+            }
+        </script>
+    </body>
+</html>
